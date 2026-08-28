@@ -1,4 +1,3 @@
-```javascript id="7h5p2c"
 const express = require("express");
 const OpenAI = require("openai");
 const fs = require("fs");
