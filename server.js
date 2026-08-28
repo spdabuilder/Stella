@@ -22,7 +22,7 @@ app.post("/ai", async (req, res) => {
 
     if (typeof message !== "string" || message.trim() === "") {
         return res.status(400).json({
-            error: "A message is required."
+            error: "A message is required." 
         });
     }
 
