@@ -7,7 +7,7 @@ const app = express();
 
 app.use(express.json());
 
-const client = new OpenAI({
+const client = new OpenAI({ 
     apiKey: process.env.OPENAI_API_KEY
 });
 
