@@ -11,8 +11,7 @@ const client = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY
 });
 
-// Load Stella's personality from stella.txt
-let STELLA_INSTRUCTIONS;
+let STELLA_INSTRUCTIONS = "";
 
 try {
     STELLA_INSTRUCTIONS = fs.readFileSync("./stella.txt", "utf8");
@@ -42,14 +41,14 @@ app.post("/ai", async (req, res) => {
             input: message.trim()
         });
 
-        res.json({
+        return res.json({
             reply: response.output_text
         });
 
     } catch (error) {
         console.error("Stella AI error:", error);
 
-        res.status(500).json({
+        return res.status(500).json({
             error: "Stella could not respond."
         });
     }
@@ -60,3 +59,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log("Stella AI server is running on port " + PORT);
 });
+```
+
