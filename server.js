@@ -7,7 +7,8 @@ const app = express();
 app.use(express.json());
 
 const client = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY
+    apiKey: process.env.GROQ_API_KEY,
+    baseURL: "https://api.groq.com/openai/v1"
 });
 
 const stellaInstructions = fs.readFileSync("./stella.txt", "utf8");
@@ -21,20 +22,29 @@ app.post("/ai", async (req, res) => {
 
     if (typeof message !== "string" || message.trim() === "") {
         return res.status(400).json({
-            error: "A message is required." 
+            error: "A message is required."
         });
     }
 
     try {
-        const response = await client.responses.create({
-            model: "gpt-5",
-            instructions: stellaInstructions,
-            input: message.trim()
+        const response = await client.chat.completions.create({
+            model: "openai/gpt-oss-20b",
+            messages: [
+                {
+                    role: "system",
+                    content: stellaInstructions
+                },
+                {
+                    role: "user",
+                    content: message.trim()
+                }
+            ]
         });
 
         return res.json({
-            reply: response.output_text
+            reply: response.choices[0].message.content
         });
+
     } catch (error) {
         console.error("Stella AI error:", error);
 
