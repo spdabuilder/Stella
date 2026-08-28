@@ -1,9 +1,10 @@
-```javascript
+```javascript id="7h5p2c"
 const express = require("express");
 const OpenAI = require("openai");
 const fs = require("fs");
 
 const app = express();
+
 app.use(express.json());
 
 const client = new OpenAI({
@@ -49,4 +50,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log("Stella AI server is running on port " + PORT);
 });
-```
